@@ -6,7 +6,7 @@
 .pnp.js
 
 # backends
-/back_end
+/back_end/
 
 # testing
 /coverage
