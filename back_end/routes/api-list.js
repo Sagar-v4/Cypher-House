@@ -8,6 +8,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/addAlgo').post((req, res) => {
+
   const name = req.body.name;
   const type = req.body.type;
   const code = req.body.code;
