@@ -10,9 +10,13 @@ import {
 import {
     GiHamburgerMenu
 } from "react-icons/gi";
+import LoginModal from "./LoginModal";
+import ContactUs from "./ContactUs";
 
  const Home = () => {
      const [showMediaIcons, setShowMediaIcons] = useState(false);
+     const [openModal, setOpenModal] = useState(false);
+     const [openConnectUs, setOpenConnectUs] = useState(false);
   return (
     <div>
      <nav className='main-nav'>
@@ -36,12 +40,16 @@ import {
                         
                     </li>
                     <li>
-                         <a href='#'>Connect With Us</a>
+                         <a href='#' className="OpenConnectUs" onClick={() =>{setOpenConnectUs(true);
+                        }}
+                        >Connect With Us</a>
                         
                     </li>
 
                     <li className="login">
-                         < a href = '#' > LogIn </a>
+                         < a href = '#' className="OpenLoginModal" onClick={() =>{setOpenModal(true);
+                        }}
+                        > LogIn </a>
                         
                     </li>
                  </ul>
@@ -85,7 +93,10 @@ import {
 
      </nav>
      <section className='main-section'>
-        <h1>Welcome to cyper house</h1>
+         {openModal && <LoginModal closeModal={setOpenModal}/>}
+          {openConnectUs && <ContactUs closeConnectModal={setOpenConnectUs}/>}
+        
+        {/* <h1>Welcome to cyper house</h1> */}
      </section>
     </div>
   )
