@@ -56,13 +56,13 @@ li {
     font-size: 1.8rem;
 }
 
-.menu ul li a {
+.menu ul li Router Link {
     text-transform: capitalize;
     color: rgba(0, 0, 3, 0.8);
     transition: 0.5s;
 }
 
-.menu ul li:hover>a {
+.menu ul li:hover>Router Link {
     transform-origin: left;
     color: rgba(0, 0, 3, 1);
     text-decoration: underline;
@@ -86,9 +86,9 @@ li {
     transition: 0.5s;
 }
 .main-section {
-    background: url('home_bg.jpg');
+    /* background: url('home_Bg.jpg');
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% 100%; */
     height: 80vh;
     display: flex;
     justify-content: center;
@@ -301,7 +301,11 @@ li {
     justify-content: center;
     align-items: center;
 } */
-
+.loginmodal{
+    display: block;
+  justify-content: center;
+  align-items: center;
+}
 .ModalContainer {
     width: 300px;
     height: 300px;
@@ -311,6 +315,7 @@ li {
     display: flex;
     flex-direction: column;
     padding: 25px;
+    justify-content: center;
 }
 
 .ModalContainer .title {
@@ -318,7 +323,11 @@ li {
     text-align: center;
     /* margin-top: 5px; */
 }
-
+.title h1{
+    color:rgb(127, 127, 238);
+    font-size:40px;
+    
+}
 .CloseBtn {
     display: flex;
     justify-content: flex-end;

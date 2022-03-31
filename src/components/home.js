@@ -12,7 +12,8 @@ import {
 } from "react-icons/gi";
 import LoginModal from "./LoginModal";
 import ContactUs from "./ContactUs";
-
+import { Link, Route, Router, Routes } from "react-router-dom";
+import AlgoList from "./AlgoList"
  const Home = () => {
      const [showMediaIcons, setShowMediaIcons] = useState(false);
      const [openModal, setOpenModal] = useState(false);
@@ -30,13 +31,18 @@ import ContactUs from "./ContactUs";
              <div className = {
                  showMediaIcons ? "menu mobile-menu-link" : "menu"
              } >
+                 {/* <Router>
+                        <Link to = "/AlgoList" > Algorithms / API </Link>   
+                </Router> */}
                  <ul>
                      <li>
-                         <a href='#'>Home</a>
+                         {/* <a href='#'>Home</a> */}
+                         <Link to = "/" > Home </Link>
                         
                     </li>
                     <li>
-                         <a href='#'>Algorithms/API</a>
+                        <Link to = "/algoList" > Algorithms / API </Link>
+                         {/* <a href='./AlgoList.js'>Algorithms/API</a> */}
                         
                     </li>
                     <li>
@@ -92,12 +98,14 @@ import ContactUs from "./ContactUs";
         </div>
 
      </nav>
-     <section className='main-section'>
+     <div className="loginmodal">
+        {openModal && <LoginModal closeModal={setOpenModal}/>}
+     </div>
+     
+     {/* <section className='main-section'>
          {openModal && <LoginModal closeModal={setOpenModal}/>}
           {openConnectUs && <ContactUs closeConnectModal={setOpenConnectUs}/>}
-        
-        {/* <h1>Welcome to cyper house</h1> */}
-     </section>
+     </section> */}
     </div>
   )
 }
