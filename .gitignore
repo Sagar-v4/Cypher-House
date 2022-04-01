@@ -2,6 +2,7 @@
 
 # dependencies
 ./node_modules/
+./back_end/node_modules/
 /.pnp
 .pnp.js
 
