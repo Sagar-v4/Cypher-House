@@ -1,4 +1,5 @@
 # dependencies
+<<<<<<< HEAD
 node_modules
 .env
 package-lock.json
@@ -8,6 +9,10 @@ package-lock.json
 ./back_end/package-lock.json
 
 
+=======
+/node_modules
+/back_end/node_modules
+>>>>>>> 0ac658d68286323f9707f80c42688df8aa7d9c12
 /.pnp
 .pnp.js
 
