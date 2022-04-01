@@ -10,14 +10,17 @@ import {
 import {
     GiHamburgerMenu
 } from "react-icons/gi";
+import {BsFillPersonFill} from "react-icons/bs"
 import LoginModal from "./LoginModal";
 import ContactUs from "./ContactUs";
+import ProfileDropDown from "./ProfileDropDown";
 import { Link, Route, Router, Routes } from "react-router-dom";
 import AlgoList from "./AlgoList"
  const Home = () => {
      const [showMediaIcons, setShowMediaIcons] = useState(false);
      const [openModal, setOpenModal] = useState(false);
      const [openConnectUs, setOpenConnectUs] = useState(false);
+    const [openProfileModal, setOpenProfileModal] = useState(false);
   return (
     <div>
      <nav className='main-nav'>
@@ -46,10 +49,8 @@ import AlgoList from "./AlgoList"
                         
                     </li>
                     <li>
-                         <a href='#' className="OpenConnectUs" onClick={() =>{setOpenConnectUs(true);
-                        }}
-                        >Connect With Us</a>
-                        
+                        < Link to = "/connect" className="OpenConnectUs" onClick={() =>{setOpenConnectUs(true);
+                        }}> Connect With Us </Link>
                     </li>
 
                     <li className="login">
@@ -60,7 +61,14 @@ import AlgoList from "./AlgoList"
                     </li>
                  </ul>
              </div>
-
+               <div className="profile-icon">
+                <Link to="/" onClick={() => {setOpenProfileModal(!openProfileModal);}}><BsFillPersonFill className="profile"></BsFillPersonFill></Link>
+                <div className="profile-drop-down">
+                    {openProfileModal && <ProfileDropDown/>}
+                </div>
+               
+               </div>
+              
 
              
 
@@ -101,7 +109,7 @@ import AlgoList from "./AlgoList"
      <div className="loginmodal">
         {openModal && <LoginModal closeModal={setOpenModal}/>}
      </div>
-     
+    
      {/* <section className='main-section'>
          {openModal && <LoginModal closeModal={setOpenModal}/>}
           {openConnectUs && <ContactUs closeConnectModal={setOpenConnectUs}/>}
@@ -109,4 +117,6 @@ import AlgoList from "./AlgoList"
     </div>
   )
 }
+
+
 export default Home

@@ -469,3 +469,98 @@ fieldset {
     font-size: 12px;
     cursor: pointer;
 }
+.profile-icon{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    font-size: 2.8rem;
+    
+}
+
+.profile{
+    color: #000;
+}
+.profileDropDown{
+    position:absolute;
+    top: 58px;
+    padding: 1rem;
+     border-radius: 12px;
+     background: rgb(0, 0, 0);
+     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+     overflow: hidden;
+     display: block;
+     justify-content: left;
+     align-items: center;
+}
+.profileDropDown ul li{
+   font-size: 2.0rem;
+}
+.Pass-container {
+    max-width: 30%;
+    max-height: 30%;
+    margin: 0 auto;
+     border-radius: 12px;
+     background: rgb(0, 0, 0);
+     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+div {
+    margin: 10px;
+}
+
+input {
+    width: 100%;
+    line-height: 2em;
+    height: 2em;
+}
+
+.row {
+    display: flex;
+    margin: -10px 0px;
+}
+
+.col {
+    max-width: 600px;
+    width: 100%;
+}
+
+fieldset {
+    border-radius: 10px;
+}
+
+form {
+    margin: 10px;
+}
+.mainBox{
+  max-width: 50%;
+  max-height: 50%;
+  width: 500px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: rgb(0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.addAdmin {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+.addAdmin{
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.3),
+    0 3px 7px rgba(255, 234, 234, 0.3),
+    inset 0 1px rgba(255, 255, 255, 1),
+    inset 0 -3px 2px rgba(252, 237, 237, 0.25);
+    width: 100px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}

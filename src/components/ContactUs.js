@@ -1,13 +1,15 @@
 import React from 'react'
+import Home from './home';
 import './home.css';
 
 function ContactUs({closeConnectModal}) {
   return (
     <div>
+        <Home></Home>
       <div class="container">
-            <div className='ContactCloseBtn'>
+            {/* <div className='ContactCloseBtn'>
                <button onClick={() => closeConnectModal(false)}> X </button>
-          </div>
+          </div> */}
             <fieldset>
                 <legend>Contact information</legend>
 
