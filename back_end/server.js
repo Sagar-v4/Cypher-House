@@ -31,7 +31,12 @@ connection.once('open', () => {
 const apiListRouter = require('./routes/api-list');
 const letsTalkRouter = require('./routes/lets-talk');
 // const profileRouter = require('./routes/profile');
-const messagesRouter = require('./routes/messages');
+const messagesRouter = require('./routes/messages'); 
+
+
+const authRouter = require('./routes/auth');
+const addAdminRouter = require('./routes/addAdmin');
+
 
 // app.use('/home', homeRouter);
 app.use('/api-list', apiListRouter);
@@ -39,3 +44,7 @@ app.use('/lets-talk', letsTalkRouter);
 // app.use('/profile', profileRouter);
 app.use('/messages', messagesRouter);
 
+
+
+app.use('/auth', authRouter)
+app.use('/addAdmin', addAdminRouter)

@@ -3,20 +3,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const adminSchema = new Schema({
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
+    first_name: { type: String },
+    last_name: { type: String },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    dp_name: { type: String, required: true },
-    dp_path: { type: String, required: true },
-    gender: { type: String, required: true },
+    dp_name: { type: String  },
+    dp_path: { type: String },
+    gender: { type: String },
     status: { type: Boolean, required: true },
-    dob: { type: Date, required: true },
-    date: { type: Date, required: true },
+    dob: { type: Date },
+    date: { type: Date },
 }, {
     timestamps: true,
 });
 
-const Admin = mongoose.model('Admin', adminSchema);
-
-module.exports = Admin;
+const admin = mongoose.model('Admin', adminSchema);
+module.exports = admin;

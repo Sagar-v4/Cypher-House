@@ -9,6 +9,6 @@ const userSchema = new Schema({
     timestamps: true,
 });
 
-const admin = mongoose.model('Admin', userSchema);
+const admin = mongoose.model('Login', userSchema);
 
 module.exports = admin;
