@@ -564,3 +564,150 @@ form {
     font-size: 20px;
     cursor: pointer;
 }
+.forgot-container {
+    max-width: 30%;
+    max-height: 30%;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.forgot-title{
+    color:white;
+}
+div {
+    margin: 10px;
+}
+
+input {
+    width: 100%;
+    line-height: 2em;
+    height: 2em;
+}
+
+.row {
+    display: flex;
+    margin: -10px 0px;
+}
+
+.col {
+    max-width: 600px;
+    width: 100%;
+}
+
+fieldset {
+    border-radius: 10px;
+}
+
+form {
+    margin: 10px;
+}
+.verify-otp-container {
+    max-width: 30%;
+    max-height: 30%;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+div {
+    margin: 10px;
+}
+
+input {
+    width: 100%;
+    line-height: 2em;
+    height: 2em;
+}
+
+.time-row {
+    display: flex;
+    margin: -10px 0px;
+    color: white;
+}
+
+.time-col {
+    max-width: 600px;
+    width: 100%;
+    color: white;
+}
+
+fieldset {
+    border-radius: 10px;
+}
+
+form {
+    margin: 10px;
+}
+.update-pass-container {
+   max-width: 30%;
+   max-height: 30%;
+   margin: 0 auto;
+   border-radius: 12px;
+   background: rgb(0, 0, 0);
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.edit-profile-container {
+    max-width: 50%;
+    max-height: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: white;
+}
+
+div {
+    margin: 10px;
+}
+
+textarea,
+input {
+    width: 100%;
+    line-height: 2em;
+}
+
+input {
+    height: 2em;
+}
+
+.gender {
+    width: 10%;
+    line-height: 0em;
+}
+
+.row {
+    display: flex;
+    margin: -10px 0px;
+}
+
+.col {
+    max-width: 300px;
+    width: 100%;
+}
+
+fieldset {
+    border-radius: 10px;
+    padding: 20px;
+}
+.edit-profile-pic-container {
+    max-width: 50%;
+    max-height: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: white;
+}
+.profile-page-container{
+    max-width: 50%;
+    max-height: 100%;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: white;
+}
+.EditProfile{
+    color:black;
+}

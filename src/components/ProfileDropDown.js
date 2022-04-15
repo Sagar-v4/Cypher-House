@@ -7,7 +7,7 @@ function ProfileDropDown() {
       <div className='profileDropDown'>
           <ul>
               <li>
-                  Name Of Admin
+                  <Link to = "/profilepage" >Name Of Admin </Link>
               </li>
               <li>
                   <Link to="/addAdmin">Add New Admin</Link>

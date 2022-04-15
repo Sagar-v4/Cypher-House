@@ -49,12 +49,12 @@ import AlgoList from "./AlgoList"
                         
                     </li>
                     <li>
-                        < Link to = "/connect" className="OpenConnectUs" onClick={() =>{setOpenConnectUs(true);
+                        < Link to = "/connect" className="OpenConnectUs" onClick={() =>{setOpenConnectUs(!openConnectUs);
                         }}> Connect With Us </Link>
                     </li>
 
                     <li className="login">
-                         < a href = '#' className="OpenLoginModal" onClick={() =>{setOpenModal(true);
+                         < a href = '#' className="OpenLoginModal" onClick={() =>{setOpenModal(!openModal);
                         }}
                         > LogIn </a>
                         
