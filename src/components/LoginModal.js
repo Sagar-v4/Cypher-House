@@ -1,5 +1,6 @@
 import React from 'react'
 import './home.css';
+import { Link, Route, Router, Routes } from "react-router-dom";
 
 function LoginModal({closeModal}) {
   return (
@@ -18,6 +19,8 @@ function LoginModal({closeModal}) {
                 <br></br>
                 <br></br>
                 <input type='password' placeholder='Enter Password' name='password'></input>
+
+                < Link to = "/forgotPassword" className="ForgotPassword"> Forgot Password? </Link>
             </form>
         </div>
         <div className='footer'>
