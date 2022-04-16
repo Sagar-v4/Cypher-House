@@ -2,6 +2,9 @@ const express = require('express');
 const {
     adminRegisterCtrl,
     adminLoginCtrl,
+    adminPasswordCtrl,
+    adminFetchProfileCtrl,
+    adminProfileUpdateCtrl,
     // fetchUserCtrl,
     // userStatusCtrl,
     // deleteUserCtrl,
@@ -15,6 +18,9 @@ const userRoutes = express.Router();
 
 userRoutes.post("/register", adminRegisterCtrl);
 userRoutes.post("/login", adminLoginCtrl);
+userRoutes.post("/changePassword", adminPasswordCtrl);
+userRoutes.post("/profile", adminFetchProfileCtrl);
+userRoutes.post("/updateData", adminProfileUpdateCtrl);
 // userRoutes.get("/allFaculties", authMiddleware, fetchUserCtrl);
 // userRoutes.get("/changeStatus", authMiddleware, userStatusCtrl);
 // userRoutes.get("/profile/:id", authMiddleware, userProfileCtrl);

@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const dbConnect = require("./config/db/dbConnect");
 const adminRoutes = require("./route/adminRoute");
-// const algorithmRoutes = require("./route/algorithmRoute");
+const algorithmRoutes = require("./route/algorithmRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 
 dotenv.config({ path: "./.env" });
@@ -34,7 +34,7 @@ app.listen(PORT, console.log(`Server is running on port ${PORT}`));
 
 //userRoutes
 app.use("/admin", adminRoutes);
-// app.use("/algorithm", algorithmRoutes);
+app.use("/algorithm", algorithmRoutes);
 
 //errorHandler
 //catch error beloe route

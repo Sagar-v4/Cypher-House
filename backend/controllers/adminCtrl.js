@@ -17,7 +17,7 @@ const adminRegisterCtrl = (req, res) => {
     var randomstring = Math.random().toString(36).slice(-8);
     const Admin = new admin({
         email: req.body.email,
-        password: bcrypt.hashSync(randomstring, 8),
+        password: randomstring,
         status: 1,
     });
 
@@ -71,140 +71,157 @@ const adminRegisterCtrl = (req, res) => {
 //----------------------------------------------------------------
 
 const adminLoginCtrl = (req, res) => {
+
     admin.findOne({ email: req.body.email }, (err, result) => {
         if (err) {
-            res.status(500).send(message = err);
+            res.status(500).send(err);
         }
         else {
+            console.log(result.isPasswordMatched(req?.body?.password));
             if (!result) {
                 res.status(404).send("User not found")
             }
             else {
-                if (bcrypt.compareSync(req.body.password, result.password)) {
-                    var token = jwt.sign(
-                        { _id: result._id, email: result.email, password: result.password },
-                        process.env.API_SECRET,
-                        {
-                            expiresIn: 86400,
-                        }
-                    );
-
-                    res.status(200).send({
-                        user: {
-                            _id: result._id, email: result.email, password: result.password
-                        },
-                        message: "Login sucessfull",
-                        accessToken: token
-                    });
+                if (!result.status) {
+                    res.status(404).send("Account blocked");
                 }
-                else {
-                    res.status(404).send("Wrong password")
+                else if (result.status) {
+                    result.isPasswordMatched(req?.body?.password).then(function (response) {
+                        if (response) {
+                            var token = jwt.sign(
+                                { _id: result._id, email: result.email, password: result.password },
+                                process.env.API_SECRET,
+                                {
+                                    expiresIn: 86400,
+                                }
+                            );
+
+                            res.status(200).send({ result })
+                        } else {
+                            res.status(404).send("Wrong password");
+
+                        };
+                    }).catch(function (err) {
+                        console.log(err);
+                    })
+
                 }
             }
         }
     })
 };
 
-const v = (req, res) => {
-    const { email, password } = req.body;
-    //check if faculty exists
-    const userFound = admin.findOne({ email });
-    console.log(userFound);
+//-----------------------------------------------------------
+// admin password change
+//-----------------------------------------------------------
 
-    //check if paassword s matched
-    if (userFound && userFound.status && userFound.isPasswordMatched(bcrypt.hashSync(randomstring, 8))) {
-        res.json({
-            _id: userFound?._id,
-            first_name: userFound?.firstName,
-            last_name: userFound?.lastName,
-            email: userFound?.email,
-            token: generateToken(userFound?._id),
-        });
-    }
-    else {
-        res.status(401);
-        throw new Error("Invaild email or password");
-    }
+const adminPasswordCtrl = expressAsyncHandler(async (req, res) => {
+    admin.findOne({ email: req.body.email }, (err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            if (!result) {
+                res.status(404).send("User not found");
+            }
+            else {
+                if (!result.status) {
+                    res.status(404).send("Account blocked");
+                }
+                else if (result.status && result.isPasswordMatched(req?.body?.currpassword)) {
 
-    // admin.findOne({ email: req.body.email }, (err, result) => {
-    //     if (err) {
-    //         res.status(500).send(message = err);
-    //     }
-    //     else {
-    //         if (!result) {
-    //             res.status(404).send("User not found")
-    //         }
-    //         else {
-    //             if (bcrypt.compareSync(req.body.password, result.password)) {
-    //                 var token = jwt.sign(
-    //                     { _id: result._id, email: result.email, password: result.password },
-    //                     process.env.API_SECRET,
-    //                     {
-    //                         expiresIn: 86400,
-    //                     }
-    //                 );
+                    result.password = req?.body?.newpassword;
+                    result.save().then(function (response) {
+                        // Handle any possible database errors
 
-    //                 res.status(200).send({
-    //                     user: {
-    //                         _id: result._id, email: result.email, password: result.password
-    //                     },
-    //                     message: "Login sucessfull",
-    //                     accessToken: token
-    //                 });
-    //             }
-    //             else {
-    //                 res.status(404).send("Wrong password")
-    //             }
-    //         }
-    //     }
-    // })
-};
+                        console.log("This is the Response: " + response);
+
+                        res.status(200).send("password changed");
+
+                    }).catch(function (err) {
+
+                        console.log("we hit an error" + err);
+                        res.json({
+                            message: 'Database Update Failure'
+                        });
+
+                    });
+
+                }
+                else {
+                    res.status(404).send("Wrong password");
+                }
+            }
+        }
+    })
+});
+
+//-----------------------------------------------------------
+// fetch admin profile
+//-----------------------------------------------------------
+
+const adminFetchProfileCtrl = expressAsyncHandler(async (req, res) => {
+    console.log(req.headers);
+
+    admin.findOne({ email: req.body.email }, (err, result) => {
+        if (err) {
+            res.status(500).send(message = err);
+        } else {
+            res.status(200).send({ result });
+        }
+    });
+});
 
 /**/
 //-----------------------------------------------------------
-// fetch all user = faculties
+// update admin profile
 //-----------------------------------------------------------
 
-const fetchUserCtrl = expressAsyncHandler(async (req, res) => {
-    console.log(req.headers);
-    try {
-        const user = await User.find({ role: false });  // fetch all faculties
-        res.json(user);
-    } catch (error) {
-        res.json(error);
-    }
-});
 
-//-----------------------------------------------------------
-// deactivate user
-//-----------------------------------------------------------
-
-const userStatusCtrl = expressAsyncHandler(async (req, res) => {
-    const { _id } = req?.userId;
-    validateMongodbID(_id);
-
-    try {
-        const user = await User.findByIdAndUpdate(
-            _id, {
-            status: req?.body?.status ? false : true,
-        },
-            {
-                new: true,
-                runValidators: true
+const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
+    admin.findOne({ email: req.body.email }, (err, result) => {
+        if (err) {
+            res.status(500).send(message = err);
+        }
+        else {
+            if (!result) {
+                res.status(404).send("User not found");
             }
-        );
-    } catch (error) {
-        res.json(error);
-    }
-    res.send("Delete faculty controller");
-});
+            else {
+                if (!result.status) {
+                    res.status(404).send("Account blocked");
+                }
+                else if (result.status) {
 
+                    validateMongodbID(result._id);
+
+                    const user = admin.findByIdAndUpdate(
+                        result._id, {
+                        first_name: req?.body?.first_name,
+                        last_name: req?.body?.last_name,
+                        gender: req?.body?.gender,
+                        dob: req?.body?.dob,
+                        dp_name: req?.body?.dp_name,
+
+                    }, function (err, docs) {
+                        if (err) {
+                            res.status(404).send(err)
+                        }
+                        else {
+                            res.status(200).send(docs);
+                        }
+                    });
+
+                }
+                else {
+                    res.status(404).send("Wrong password");
+                }
+            }
+        }
+    })
+});
 
 /*
-//-----------------------------------------------------------
-// delete faculty
-//-----------------------------------------------------------
-
 const deleteFacultiesCtrl = expressAsyncHandler(async (req, res) => {
     console.log(req.params);
     const { id } = req.params;
@@ -282,6 +299,9 @@ const updateFacultyCtrl = expressAsyncHandler(async (req, res) => {
 module.exports = {
     adminRegisterCtrl,
     adminLoginCtrl,
+    adminPasswordCtrl,
+    adminFetchProfileCtrl,
+    adminProfileUpdateCtrl
     // fetchUserCtrl,
     // userStatusCtrl,
     // userProfileCtrl,
