@@ -16,20 +16,19 @@ const algorithmSchema = new mongoose.Schema({
         unique: [true, "Code of algorithm must be unique"],
     },
     cast: {
-        required: [true, "Admin id is required"],
+        // required: [true, "Admin id is required"],
         type: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'admin'
         }],
     },
     used: {
-        required: [true, "Used count is required"],
         type: Number,
         default: 0,
     },
     status: {
-        required: [true, "Status is required"],
-        type: Boolean
+        type: Boolean,
+        default: true,
     },
     description: {
         required: [true, "Description is required"],
@@ -47,5 +46,5 @@ const algorithmSchema = new mongoose.Schema({
     }
 );
 
-const Algorithm = mongoose.model('algorithm', algorithmSchema);
-module.exports = Algorithm;
+const algorithm = mongoose.model('algorithm', algorithmSchema);
+module.exports = algorithm;

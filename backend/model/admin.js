@@ -19,12 +19,6 @@ const adminSchema = new mongoose.Schema({
     dp_name: {
         type: String
     },
-    dp_path: {
-        type: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Path'
-        }],
-    },
     gender: {
         type: String
     },
@@ -56,17 +50,17 @@ const adminSchema = new mongoose.Schema({
 );
 
 //Hash password 
-// adminSchema.pre('save', async function (next) {
-//     //hash password
-//     const salt = await bcrypt.genSalt(10);
-//     this.password = await bcrypt.hash(this.password, salt);
-//     next();
-// });
+adminSchema.pre('save', async function (next) {
+    //hash password
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
 
 //match password 
-// adminSchema.methods.isPasswordMatched = async function (enteredPassword) {
-//     return await bcrypt.compare(enteredPassword, this.password);
-// };
+adminSchema.methods.isPasswordMatched = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 
 //Compile the schema into models
 const admin = mongoose.model('admin', adminSchema);
