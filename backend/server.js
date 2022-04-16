@@ -8,6 +8,11 @@ const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 dotenv.config({ path: "./.env" });
 const app = express();
 
+
+const cors = require('cors');
+app.use(cors());
+
+
 //DB connection
 dbConnect();
 

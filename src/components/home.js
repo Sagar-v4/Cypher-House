@@ -69,10 +69,6 @@ import AlgoList from "./AlgoList"
                 </div>
                
                </div>
-              
-
-             
-
 
              <div className="social-media">
                <ul className="social-media-desktop">
