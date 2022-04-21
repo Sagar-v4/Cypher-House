@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+    @import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+    [class*=fontawesome-]:before {
+      font-family: "FontAwesome", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #222;
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 60em;
+      min-width: 45em;
+      margin: 0 auto;
+      padding: 0 2em;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      margin: 0 auto;
+      top: 0;
+      z-index: 3;
+    }
+
+    nav ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      float: right;
+    }
+
+    nav li {
+      display: inline-block;
+      padding: 2em;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    nav li:last-child {
+      padding-right: 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    nav a:hover {
+      color: #ddd;
+    }
+
+    #icon {
+      display: inline-block;
+      padding-top: 0.7em;
+      font-size: 2em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    #nav-bg {
+      background: #222;
+      position: fixed;
+      height: 5em;
+      width: 100%;
+      top: 0;
+      z-index: 1;
+    }
+
+    header {
+      position: relative;
+      background-color: #fd7777;
+      padding: 10em 0 8em;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 4em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    #about {
+      background: #e7e3da;
+      height: 70em;
+      padding: 5em 0;
+    }
+
+    #about p {
+      line-height: 2em;
+      font-size: 1.4em;
+      margin: 0;
+      color: #222;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav>
+    <div class='container'>
+      <div class='fontawesome-cog' id='icon'></div>
+      <ul>
+        <li>
+          <a href='#'>Home</a>
+        </li>
+        <li>
+          <a href='./viewAlgo.html'>API</a>
+        </li>
+        <li>
+          <a href='./contactUs.html'>Contact us</a>
+        </li>
+        <li>
+          <a href='./login.html'>Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <header>
+    <div class='container'>
+      <h1>Cypher House</h1>
+    </div>
+  </header>
+  <div id='nav-bg'></div>
+
+  <script>
+    var header = $("header");
+    var range = 200;
+
+    $(window).on("scroll", function () {
+      var scrollTop = $(this).scrollTop(),
+        height = header.outerHeight(),
+        offset = height / 2,
+        calc = 1 - (scrollTop - offset + range) / range;
+
+      header.css({ opacity: calc });
+
+      if (calc > "1") {
+        header.css({ opacity: 1 });
+      } else if (calc < "0") {
+        header.css({ opacity: 0 });
+      }
+    });
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Profile</title>
+
+  <style>
+    @charset "UTF-8";
+
+    body {
+      background: #e9e9e9;
+      color: #666666;
+      font-family: "RobotoDraft", "Roboto", sans-serif;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Container */
+    /* .container {
+      position: relative;
+      max-width: 460px;
+      width: 100%;
+      margin: 0 auto 100px;
+    } */
+
+    /* Card */
+    .card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 5px;
+      padding: 60px 0 40px 0;
+      box-sizing: border-box;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      transition: 0.3s ease;
+    }
+
+    .card:first-child {
+      background: #fafafa;
+      height: 10px;
+      border-radius: 5px 5px 0 0;
+      margin: 0 10px;
+      padding: 0;
+    }
+
+    .card .title {
+      position: relative;
+      z-index: 1;
+      border-left: 5px solid #ed2553;
+      margin: 0 0 35px;
+      padding: 10px 0 10px 50px;
+      color: #ed2553;
+      font-size: 32px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .card .input-container {
+      position: relative;
+      margin: 0 60px 50px;
+    }
+
+    .card .input-container input {
+      outline: none;
+      z-index: 1;
+      position: relative;
+      background: none;
+      width: 100%;
+      height: 60px;
+      border: 0;
+      color: #212121;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .card .input-container input:focus~label {
+      color: #9d9d9d;
+      transform: translate(-12%, -50%) scale(0.75);
+    }
+
+    .card .input-container input:focus~.bar:before,
+    .card .input-container input:focus~.bar:after {
+      width: 50%;
+    }
+
+    .card .input-container input:valid~label {
+      color: #9d9d9d;
+      transform: translate(-12%, -50%) scale(0.75);
+    }
+
+    .card .input-container label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #757575;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 60px;
+      transition: 0.2s ease;
+    }
+
+    .card .input-container .bar {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background: #757575;
+      width: 100%;
+      height: 1px;
+    }
+
+    .card .button-container {
+      margin: 0 60px;
+      text-align: center;
+    }
+
+    .card .button-container button {
+      outline: 0;
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      background: 0;
+      width: 240px;
+      border: 2px solid #e3e3e3;
+      padding: 20px 0;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: 0.3s ease;
+    }
+
+    .card .button-container button:hover,
+    .card .button-container button:active,
+    .card .button-container button:focus {
+      border-color: #ed2553;
+    }
+
+    .card .button-container button:hover span,
+    .card .button-container button:active span,
+    .card .button-container button:focus span {
+      color: #ed2553;
+    }
+
+    .card .button-container button:active span,
+    .card .button-container button:focus span {
+      color: #ffffff;
+    }
+
+    .card .button-container button:active:before,
+    .card .button-container button:focus:before {
+      opacity: 1;
+      transform: scale(10);
+    }
+
+
+    .feedback-input {
+	color:#3c3c3c;
+	font-family: Helvetica, Arial, sans-serif;
+  font-weight:500;
+	font-size: 18px;
+	border-radius: 0;
+	line-height: 22px;
+	background-color: #fbfbfb;
+	padding: 13px 13px 13px 54px;
+	margin-bottom: 10px;
+	width:100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+  border: 3px solid rgba(0,0,0,0);
+}
+
+.feedback-input:focus{
+	background: #fff;
+	box-shadow: 0;
+	border: 3px solid #3498db;
+	color: #3498db;
+	outline: none;
+  padding: 13px 13px 13px 54px;
+}
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="card"></div>
+    <div class="card">
+      <h1 class="title">View Profile</h1>
+      <form action="#" method="post">
+        <div class="input-container">
+          <input type="text" name="name" id="#{label}" value="" required="required" />
+          <label for="#{label}">Name</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="text" name="gender" id="#{label}" required="required" />
+          <label for="#{label}">Gender</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <input type="text" name="dob" id="#{label}" required="required" />
+          <label for="#{label}">Date of birth</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button><span>Submit</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

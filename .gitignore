@@ -1,0 +1,28 @@
+./back_end/node_modules
+./back_end/.env
+./back_end/package-lock.json
+./back_end/node_modules/.package-lock.json
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+back_end/node_modules/.package-lock.json
+back_end/package.json
+back_end/package-lock.json
+back_end/node_modules/.package-lock.json
+back_end/package.json
