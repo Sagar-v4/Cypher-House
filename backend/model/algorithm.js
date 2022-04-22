@@ -15,12 +15,12 @@ const algorithmSchema = new mongoose.Schema({
         type: String,
         unique: [true, "Code of algorithm must be unique"],
     },
-    cast: {
+    admin: {
         // required: [true, "Admin id is required"],
-        type: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'admin'
-        }],
+        
+            type: String,
+            required:[true,"Enter admin email id"]
+        ,
     },
     used: {
         type: Number,

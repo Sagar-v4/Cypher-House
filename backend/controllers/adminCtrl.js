@@ -24,7 +24,7 @@ const adminRegisterCtrl = (req, res) => {
     admin.findOne({ email: req.body.email }, (err, result) => {
         console.log(result);
         if (result) {
-            res.status(500).send(message = "User alredy exist");
+            res.status(500).send({message :"User alredy exist",status:501});
         }
         else {
             Admin.save((err, res) => {
@@ -58,7 +58,7 @@ const adminRegisterCtrl = (req, res) => {
                 else
                     console.log(info);
 
-                res.status(200).send({ message: "mail sent successfully" });
+                res.status(200).send({ message: "mail sent successfully" , status:201});
             });
         }
     })
@@ -79,11 +79,11 @@ const adminLoginCtrl = (req, res) => {
         else {
             console.log(result.isPasswordMatched(req?.body?.password));
             if (!result) {
-                res.status(404).send("User not found")
+                res.status(400).send("User not found")
             }
             else {
                 if (!result.status) {
-                    res.status(404).send("Account blocked");
+                    res.status(400).send("Account blocked");
                 }
                 else if (result.status) {
                     result.isPasswordMatched(req?.body?.password).then(function (response) {
@@ -96,9 +96,9 @@ const adminLoginCtrl = (req, res) => {
                                 }
                             );
 
-                            res.status(200).send({ result })
+                            res.status(200).send({ result,status:201 });
                         } else {
-                            res.status(404).send("Wrong password");
+                            res.status(400).send("Wrong password");
 
                         };
                     }).catch(function (err) {
@@ -115,7 +115,7 @@ const adminLoginCtrl = (req, res) => {
 // admin password change
 //-----------------------------------------------------------
 
-const adminPasswordCtrl = expressAsyncHandler(async (req, res) => {
+const adminPasswordCtrl = async (req, res) => {
     admin.findOne({ email: req.body.email }, (err, result) => {
         if (err) {
             res.status(500).send(err);
@@ -154,23 +154,24 @@ const adminPasswordCtrl = expressAsyncHandler(async (req, res) => {
             }
         }
     })
-});
+};
 
 //-----------------------------------------------------------
 // fetch admin profile
 //-----------------------------------------------------------
 
-const adminFetchProfileCtrl = expressAsyncHandler(async (req, res) => {
-    console.log(req.headers);
+const adminFetchProfileCtrl = async (req, res) => {
+    console.log("called");
 
-    admin.findOne({ email: req.body.email }, (err, result) => {
+    admin.findOne({ email: req.params.email }, (err, result) => {
+        console.log(result);
         if (err) {
             res.status(500).send(message = err);
         } else {
             res.status(200).send({ result });
         }
     });
-});
+};
 
 /**/
 //-----------------------------------------------------------
@@ -179,7 +180,7 @@ const adminFetchProfileCtrl = expressAsyncHandler(async (req, res) => {
 
 
 const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
-    admin.findOne({ email: req.body.email }, (err, result) => {
+    admin.findOne({ email: req.params.email }, (err, result) => {
         if (err) {
             res.status(500).send(message = err);
         }
@@ -197,18 +198,17 @@ const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
 
                     const user = admin.findByIdAndUpdate(
                         result._id, {
-                        first_name: req?.body?.first_name,
-                        last_name: req?.body?.last_name,
+                        
+                        name: req?.body?.name,
                         gender: req?.body?.gender,
-                        dob: req?.body?.dob,
-                        dp_name: req?.body?.dp_name,
+                        dob: req?.body?.dob
 
                     }, function (err, docs) {
                         if (err) {
                             res.status(404).send(err)
                         }
                         else {
-                            res.status(200).send(docs);
+                            res.status(200).send({docs,status:201});
                         }
                     });
 

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View algorithm</title>
+
+    <style>
+
+.container {
+      max-width: 60em;
+      min-width: 45em;
+      margin: 0 auto;
+      padding: 0 2em;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      margin: 0 auto;
+      top: 0;
+      z-index: 3;
+    }
+
+    nav ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      float: right;
+    }
+
+    nav li {
+      display: inline-block;
+      padding: 2em;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    nav li:last-child {
+      padding-right: 0;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    nav a:hover {
+      color: #ddd;
+    }
+
+    #icon {
+      display: inline-block;
+      padding-top: 0.7em;
+      font-size: 2em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    #nav-bg {
+      background: #222;
+      position: fixed;
+      height: 5em;
+      width: 100%;
+      top: 0;
+      z-index: 1;
+    }
+
+    header {
+      position: relative;
+      background-color: #fd7777;
+      padding: 10em 0 8em;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 4em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    #about {
+      background: #e7e3da;
+      height: 70em;
+      padding: 5em 0;
+    }
+
+    #about p {
+      line-height: 2em;
+      font-size: 1.4em;
+      margin: 0;
+      color: #222;
+    }
+
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table caption {
+            font-size: 1.5em;
+            margin: 0.5em 0 0.75em;
+        }
+
+        table tr {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 0.35em;
+        }
+
+        table th,
+        table td {
+            padding: 0.625em;
+            text-align: center;
+        }
+
+        table th {
+            font-size: 0.85em;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+
+            table caption {
+                font-size: 1.3em;
+            }
+
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: 0.625em;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: 0.8em;
+                text-align: right;
+            }
+
+            table td::before {
+                /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        /* general styling */
+        body {
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.25;
+        }
+
+        button {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: rgb(197, 92, 92);
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        button:hover,
+        button:active,
+        button:focus {
+            background: grey;
+        }
+
+        footer {
+            padding: 1% 5%;
+            text-align: center;
+            background-color: #373b44;
+            color: white;
+        }
+    </style>
+</head>
+
+<script>
+
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+        
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        }  
+
+
+ function send()
+  {
+      var email = getCookie("email"); 
+      
+      if(!email)
+      {    
+        location.href="/";
+      }
+   
+                fetch('/algorithm/all')
+                  .then(res=>res.json())
+                  .then(data=>data.result)
+                  .then(r=>{
+                                 
+                    console.info(r)
+                    for (let j in r)
+                    {
+                      
+                      var newtr = document.createElement('tr');
+                      var newtd = document.createElement('td');
+                      var t = document.createTextNode(parseInt(j)+parseInt(1));
+                      newtd.appendChild(t);
+                      newtr.appendChild(newtd);
+
+                      var newtd = document.createElement('td');
+                      var t = document.createTextNode(r[j].name);
+                      newtd.appendChild(t);
+                      newtr.appendChild(newtd);
+
+                       var newtd = document.createElement('td');
+                        var t = document.createTextNode(r[j].used);
+                      newtd.appendChild(t);
+                     
+                      newtr.appendChild(newtd);
+                     
+
+                      var newtd = document.createElement('td');
+                      var t = document.createTextNode(r[j].code);
+                      newtd.appendChild(t);
+                      newtr.appendChild(newtd);
+                      
+                      var newtd = document.createElement('td');
+                      var t = document.createTextNode(r[j].admin);
+                      newtd.appendChild(t);
+                      newtr.appendChild(newtd);
+           
+                      document.getElementById('tbod').appendChild(newtr);
+                    
+                    } 
+                    
+                    });
+                  
+            }
+        
+
+</script>
+
+<body onload="send()">
+
+    <nav>
+        <div class='container'>
+          <div class='fontawesome-cog' id='icon'></div>
+          <ul>
+            <li>
+              <a href='./adminDashboard.html'>Home</a>
+            </li>
+            <li>
+              <a href='./adminViewAlgo.html'>View API</a>
+            </li>
+            <li>
+              <a href='./adminAddAlgo.html'>Add API</a>
+            </li>
+            <li>
+              <a href='./adminAdd.html'>Add Admin</a>
+            </li>
+            <li>
+              <a href='./adminViewProfile.html'>Profile</a>
+            </li>
+
+            <li>
+              <a href='./logout.html'>Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <header>
+        <div class='container'>
+          <h1>Cypher House</h1>
+        </div>
+      </header>
+      <div id='nav-bg'></div>
+
+    <table>
+        <caption>Algorithm and API</caption>
+        <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Count</th>
+                <th scope="col">Code</th>
+                <th scope="col">Added By</th>
+            </tr>
+        </thead>
+        <tbody id="tbod">
+           
+        </tbody>
+    </table>
+    <form action="./adminAddAlgo.html" method="get">
+        <button name="new_algo">Add New</button>
+    </form>
+
+    <footer>
+        CypherHouse @copyright 2022 - All Rights Reserved 
+    </footer>
+    
+</body>
+
+</html>
