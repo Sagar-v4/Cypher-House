@@ -170,13 +170,12 @@ const adminFetchProfileCtrl = async (req, res) => {
     });
 };
 
-/**/
 //-----------------------------------------------------------
 // update admin profile
 //-----------------------------------------------------------
 
-
 const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
+    
     admin.findOne({ email: req.params.email }, (err, result) => {
         if (err) {
             res.status(500).send(message = err);
