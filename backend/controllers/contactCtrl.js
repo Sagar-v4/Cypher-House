@@ -22,10 +22,9 @@ module.exports.sent = async (req, res) => {
 
     transporter.sendMail(mailOptions, function (err, info) {
         if (err)
-            console.log(err)
+            console.log(err);
         else
             console.log(info);
-
         res.status(200).send({ message: "Submit Successful", status: 201 });
     });
 }
