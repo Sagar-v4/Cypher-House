@@ -18,23 +18,16 @@ const apiCtrl = expressAsyncHandler(async (req, res) => {
         if (method == 'd')
             res.send(decrypt(req?.body?.str));
 
-        const user = Algorithm.findByIdAndUpdate(
-            algo._id, {
-
-            used: algo.used + 1
-
-        }, function (err, docs) {
-            if (err) {
-                res.status(404).send(err)
+        if (method == 'e' || method == 'd') {
+            const user = Algorithm.findByIdAndUpdate(
+                algo._id, {
+                used: algo.used + 1,
             }
-            else {
-                res.status(200).send({ docs, status: 200 });
-            }
-        });
-
-        res.status(404).send("API method not found");
+            );
+        } else
+            console.log("API method not found");
     } else {
-        res.status(404).send("API not found");
+        console.log("API not found");
     }
 
 });

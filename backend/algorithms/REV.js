@@ -11,7 +11,6 @@ const encrypt = (str) => {
     return newString;
 };
 
-/**/
 //----------------------------------------------------------------
 // decryption
 //----------------------------------------------------------------
@@ -25,8 +24,7 @@ const decrypt = (str) => {
     return newString;
 };
 
-
 module.exports = {
     encrypt,
-    decrypt,
+    decrypt
 };
