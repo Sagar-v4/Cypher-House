@@ -1,11 +1,8 @@
 const expressAsyncHandler = require("express-async-handler");
 const admin = require("../model/admin");
 var jwt = require('jsonwebtoken');
-const algorithm = require("../model/algorithm");
-const generateToken = require("../config/token/generateToken");
 const validateMongodbID = require("../utils/validateMongodbID");
 
-const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
 // ----------------------------------------------------------------
@@ -24,7 +21,7 @@ const adminRegisterCtrl = (req, res) => {
     admin.findOne({ email: req.body.email }, (err, result) => {
         console.log(result);
         if (result) {
-            res.status(500).send({message :"User alredy exist",status:501});
+            res.status(500).send({ message: "User alredy exist", status: 501 });
         }
         else {
             Admin.save((err, res) => {
@@ -58,7 +55,7 @@ const adminRegisterCtrl = (req, res) => {
                 else
                     console.log(info);
 
-                res.status(200).send({ message: "mail sent successfully" , status:201});
+                res.status(200).send({ message: "mail sent successfully", status: 201 });
             });
         }
     })
@@ -96,7 +93,7 @@ const adminLoginCtrl = (req, res) => {
                                 }
                             );
 
-                            res.status(200).send({ result,status:201 });
+                            res.status(200).send({ result, status: 201 });
                         } else {
                             res.status(400).send("Wrong password");
 
@@ -198,7 +195,7 @@ const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
 
                     const user = admin.findByIdAndUpdate(
                         result._id, {
-                        
+
                         name: req?.body?.name,
                         gender: req?.body?.gender,
                         dob: req?.body?.dob
@@ -208,7 +205,7 @@ const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
                             res.status(404).send(err)
                         }
                         else {
-                            res.status(200).send({docs,status:201});
+                            res.status(200).send({ docs, status: 201 });
                         }
                     });
 
@@ -221,92 +218,10 @@ const adminProfileUpdateCtrl = expressAsyncHandler(async (req, res) => {
     })
 });
 
-/*
-const deleteFacultiesCtrl = expressAsyncHandler(async (req, res) => {
-    console.log(req.params);
-    const { id } = req.params;
-
-    //check if faculty id is valid
-    validateMongodbID(id);
-
-    try {
-        const deletedFaculty = await Faculty.findByIdAndDelete(id);
-        res.json(deletedFaculty);
-    } catch (error) {
-        res.json(error);
-    }
-    res.send("Delete faculty controller");
-});
-
-
-//-----------------------------------------------------------
-// faculty details
-//-----------------------------------------------------------
-
-const fetchFacultyDetailsCtrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-
-    //check if faculty id is valid
-    validateMongodbID(id);
-
-    try {
-        const faculty = await Faculty.findById(id);
-        res.json(faculty);
-    } catch (error) {
-        res.json(error);
-    }
-});
-
-//-----------------------------------------------------------
-// faculty profile
-//-----------------------------------------------------------
-
-const facultyProfileCtrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-    validateMongodbID(id);
-    try {
-        const myProfile = await Faculty.findById(id);
-        res.json(myProfile);
-    } catch (error) {
-        res.json(error);
-    }
-});
-
-//-----------------------------------------------------------
-// update profile
-//-----------------------------------------------------------
-
-const updateFacultyCtrl = expressAsyncHandler(async (req, res) => {
-    const { _id } = req?.faculty;
-    validateMongodbID(_id);
-
-    const faculty = await Faculty.findByIdAndUpdate(
-        _id, {
-        firstName: req?.body?.firstName,
-        lastName: req?.body?.lastName,
-        email: req?.body?.email,
-    },
-        {
-            new: true,
-            runValidators: true
-        }
-    );
-    console.log(_id);
-    res.json(faculty);
-
-});
-*/
 module.exports = {
     adminRegisterCtrl,
     adminLoginCtrl,
     adminPasswordCtrl,
     adminFetchProfileCtrl,
     adminProfileUpdateCtrl
-    // fetchUserCtrl,
-    // userStatusCtrl,
-    // userProfileCtrl,
-    // deleteFacultiesCtrl,
-    // fetchFacultyDetailsCtrl,
-    // facultyProfileCtrl,
-    // updateFacultyCtrl,
 };

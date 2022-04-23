@@ -2,10 +2,8 @@ const expressAsyncHandler = require("express-async-handler");
 const admin = require("../model/admin");
 var jwt = require('jsonwebtoken');
 const algorithm = require("../model/algorithm");
-const generateToken = require("../config/token/generateToken");
 const validateMongodbID = require("../utils/validateMongodbID");
 
-const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
 // ----------------------------------------------------------------
@@ -81,134 +79,7 @@ const showAlgorithmCtrl = expressAsyncHandler(async (req, res) => {
     });
 });
 
-/**/
-//-----------------------------------------------------------
-// fetch all user = faculties
-//-----------------------------------------------------------
-
-const fetchUserCtrl = expressAsyncHandler(async (req, res) => {
-    console.log(req.headers);
-    try {
-        const user = await User.find({ role: false });  // fetch all faculties
-        res.json(user);
-    } catch (error) {
-        res.json(error);
-    }
-});
-
-//-----------------------------------------------------------
-// deactivate user
-//-----------------------------------------------------------
-
-const userStatusCtrl = expressAsyncHandler(async (req, res) => {
-    const { _id } = req?.userId;
-    validateMongodbID(_id);
-
-    try {
-        const user = await User.findByIdAndUpdate(
-            _id, {
-            status: req?.body?.status ? false : true,
-        },
-            {
-                new: true,
-                runValidators: true
-            }
-        );
-    } catch (error) {
-        res.json(error);
-    }
-    res.send("Delete faculty controller");
-});
-
-
-/*
-//-----------------------------------------------------------
-// delete faculty
-//-----------------------------------------------------------
-
-const deleteFacultiesCtrl = expressAsyncHandler(async (req, res) => {
-    console.log(req.params);
-    const { id } = req.params;
-
-    //check if faculty id is valid
-    validateMongodbID(id);
-
-    try {
-        const deletedFaculty = await Faculty.findByIdAndDelete(id);
-        res.json(deletedFaculty);
-    } catch (error) {
-        res.json(error);
-    }
-    res.send("Delete faculty controller");
-});
-
-
-//-----------------------------------------------------------
-// faculty details
-//-----------------------------------------------------------
-
-const fetchFacultyDetailsCtrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-
-    //check if faculty id is valid
-    validateMongodbID(id);
-
-    try {
-        const faculty = await Faculty.findById(id);
-        res.json(faculty);
-    } catch (error) {
-        res.json(error);
-    }
-});
-
-//-----------------------------------------------------------
-// faculty profile
-//-----------------------------------------------------------
-
-const facultyProfileCtrl = expressAsyncHandler(async (req, res) => {
-    const { id } = req.params;
-    validateMongodbID(id);
-    try {
-        const myProfile = await Faculty.findById(id);
-        res.json(myProfile);
-    } catch (error) {
-        res.json(error);
-    }
-});
-
-//-----------------------------------------------------------
-// update profile
-//-----------------------------------------------------------
-
-const updateFacultyCtrl = expressAsyncHandler(async (req, res) => {
-    const { _id } = req?.faculty;
-    validateMongodbID(_id);
-
-    const faculty = await Faculty.findByIdAndUpdate(
-        _id, {
-        firstName: req?.body?.firstName,
-        lastName: req?.body?.lastName,
-        email: req?.body?.email,
-    },
-        {
-            new: true,
-            runValidators: true
-        }
-    );
-    console.log(_id);
-    res.json(faculty);
-
-});
-*/
 module.exports = {
     addAlgorithmCtrl,
-    showAlgorithmCtrl,
-    // adminLoginCtrl,
-    // fetchUserCtrl,
-    // userStatusCtrl,
-    // userProfileCtrl,
-    // deleteFacultiesCtrl,
-    // fetchFacultyDetailsCtrl,
-    // facultyProfileCtrl,
-    // updateFacultyCtrl,
+    showAlgorithmCtrl
 };

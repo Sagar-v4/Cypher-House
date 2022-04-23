@@ -24,6 +24,7 @@ app.use("/admin", adminRoutes);
 app.use("/algorithm", algorithmRoutes);
 app.use("/api", apiRoutes);
 app.use("/contact", contactRoutes);
+
 app.use(fileUpload({
 
     useTempFiles: true,
@@ -146,7 +147,6 @@ app.get("/login.html", (req, res) => {
     res.render('login')
 });
 
-
 app.get("/logout.html", (req, res) => {
     res.render('logout')
 });
@@ -165,5 +165,5 @@ app.get("/viewAlgo.html", (req, res) => {
 
 console.log(static_path);
 //server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log(`Server is running on port ${PORT}`));
